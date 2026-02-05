@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscador de Avatares Mindbox</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <h3>❤️ Historial de Me Gusta</h3>
+    <div class="gallery" id="contenedor-historial">
+
+    </div>
+    
+            <a href="/index.html">
+        <button>Regresar a la galeria</button>
+    </a>
+    </div>
+
+        <script>
+        // Cargar favoritos al iniciar
+        window.onload = mostrarHistorial;
+
+
+        function mostrarHistorial() {
+            const contenedor = document.getElementById('contenedor-historial');
+            let favoritos = JSON.parse(localStorage.getItem('favoritos_mindbox')) || [];
+            
+            contenedor.innerHTML = favoritos.length === 0 ? "<p style='color: #888;'>Aún no hay favoritos.</p>" : "";
+
+            favoritos.forEach(fav => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <img src="${fav.url}" onerror="this.src='https://via.placeholder.com/150x150?text=No+Encontrado'">
+                    <p>${fav.id}</p>
+                    <button onclick="eliminarFav('${fav.id}')" style="font-size: 10px; color: red; border:none; background:none; cursor:pointer;">Eliminar</button>
+                `;
+                contenedor.appendChild(card);
+            });
+        }
+
+        function eliminarFav(id) {
+            let favoritos = JSON.parse(localStorage.getItem('favoritos_mindbox')) || [];
+            favoritos = favoritos.filter(fav => fav.id !== id);
+            localStorage.setItem('favoritos_mindbox', JSON.stringify(favoritos));
+            mostrarHistorial();
+        }
+    </script>
+</body>
+</html>

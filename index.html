@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscador de Avatares Mindbox</title>
+<link rel="stylesheet" href="style.css">
+<body>
+
+    <h2>Buscador de Avatares</h2>
+    
+    <div class="controls">
+        <label>Prefijo (5 dígitos): </label>
+        <input type="text" id="prefijo" value="24610" maxlength="5">
+        <br>
+        <label>Rango: de </label>
+        <input type="number" id="inicio" value="150">
+        <label> a </label>
+        <input type="number" id="fin" value="155">
+        <br><br>
+        <button onclick="generarGaleria()">Generar Galería</button>
+    </div>
+    <div>
+        <a href="/historial.html">
+            <button>Historial de ❤️</button>
+        </a>
+
+    </div>
+
+    <div class="gallery" id="contenedor-galeria"></div>
+
+    <hr>
+    
+
+    <script>
+        // Cargar favoritos al iniciar
+        window.onload = mostrarHistorial;
+
+        function generarGaleria() {
+            const prefijo = document.getElementById('prefijo').value;
+            const inicio = parseInt(document.getElementById('inicio').value);
+            const fin = parseInt(document.getElementById('fin').value);
+            const galeria = document.getElementById('contenedor-galeria');
+            const baseUrl = "https://storage.mindbox.app/data/mbid_54/avatars/";
+
+            galeria.innerHTML = "";
+
+            if (prefijo.length !== 5) {
+                alert("Por favor, ingresa exactamente 5 dígitos para el prefijo.");
+                return;
+            }
+
+            for (let i = inicio; i <= fin; i++) {
+                let sufijo = i.toString().padStart(3, '0');
+                let idControl = prefijo + sufijo;
+                let imgUrl = `${baseUrl}${idControl}.jpg`;
+
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                // Botón de Corazón
+                const btn = document.createElement('button');
+                btn.className = 'btn-heart';
+                btn.innerHTML = '❤️';
+                btn.onclick = () => guardarEnHistorial(idControl, imgUrl);
+
+                const img = document.createElement('img');
+                img.src = imgUrl;
+                img.alt = "Cargando...";
+                img.onerror = function() { this.src = 'https://via.placeholder.com/150x150?text=No+Encontrado'; };
+
+                const p = document.createElement('p');
+                p.textContent = idControl;
+
+                card.appendChild(btn);
+                card.appendChild(img);
+                card.appendChild(p);
+                galeria.appendChild(card);
+            }
+        }
+
+        function guardarEnHistorial(id, url) {
+            let favoritos = JSON.parse(localStorage.getItem('favoritos_mindbox')) || [];
+            
+            // Evitar duplicados
+            if (!favoritos.some(fav => fav.id === id)) {
+                favoritos.push({id, url});
+                localStorage.setItem('favoritos_mindbox', JSON.stringify(favoritos));
+                mostrarHistorial();
+            }
+        }
+
+    </script>
+</body>
+</html>

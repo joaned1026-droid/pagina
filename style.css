@@ -1,0 +1,18 @@
+
+        body { font-family: sans-serif; background-color: #f4f4f9; padding: 20px; text-align: center; }
+        .controls { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 30px; }
+        input { padding: 8px; margin: 5px; border: 1px solid #ccc; border-radius: 4px; width: 80px; }
+        button { padding: 8px 20px; background-color: #ff0040; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #b30024; }
+        
+        .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .card { background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 160px; position: relative; }
+        .card img { width: 100%; height: auto; border-radius: 4px; background-color: #eee; min-height: 150px; }
+        .card p { margin-top: 10px; font-weight: bold; font-size: 0.9em; color: #333; }
+
+        /* Estilos nuevos para el botón de corazón e historial */
+        .btn-heart { position: absolute; top: 15px; right: 15px; background: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); font-size: 18px; color: #ff4b2b; display: flex; align-items: center; justify-content: center; }
+        .btn-heart:hover { transform: scale(1.1); }
+        hr { border: 0; height: 1px; background: #ddd; margin: 40px 0; }
+        h3 { color: #333; }
+        .historial-container { margin-top: 20px; border-top: 2px solid #ddd; padding-top: 20px; }
